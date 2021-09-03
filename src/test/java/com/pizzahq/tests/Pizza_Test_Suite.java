@@ -36,9 +36,9 @@ public class Pizza_Test_Suite {
         new WebDriverWait(driver, 1000).until(ExpectedConditions.visibilityOf(errorMessages.get(0)));
 
         //Assert
-        Assertions.assertEquals("Forename is required", errorMessages.get(0).getText());
-        Assertions.assertEquals("Email is required", errorMessages.get(1).getText());
-        Assertions.assertEquals("Message is required", errorMessages.get(2).getText());
+        Assertions.assertEquals("Forename is required",  driver.findElement(By.id("forename-err")).getText());
+        Assertions.assertEquals("Email is required",  driver.findElement(By.id("email-err")).getText());
+        Assertions.assertEquals("Message is required",  driver.findElement(By.id("message-err")).getText());
 
     }
 
