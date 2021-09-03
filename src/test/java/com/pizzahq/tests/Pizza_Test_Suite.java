@@ -28,8 +28,8 @@ public class Pizza_Test_Suite {
 
         // Arrange
         var homePage = new HomePage(driver);
-        homePage.content_Button_Click();
-        homePage.content_SubmitButton_Click();
+        homePage.click_Content_Button();
+        homePage.click_Content_SubmitButton();
 
         // Act
         var errorMessages =driver.findElements(By.className("form-error"));
@@ -47,38 +47,42 @@ public class Pizza_Test_Suite {
 
         // Arrange
         var homePage = new HomePage(driver);
-        homePage.content_Button_Click();
-        homePage.content_SubmitButton_Click();
 
         // Act
+        homePage.click_Content_Button();
+        homePage.click_Content_SubmitButton();
+
         driver.findElement(By.id("forename")).sendKeys("Dan");
         driver.findElement(By.id("email")).sendKeys("dan@abc.com");
         driver.findElement(By.id("message")).sendKeys("Nice Pizza");
 
         // Assert
         Assertions.assertTrue( driver.findElements(By.id("forename-err")).size() == 0);
-        Assertions.assertTrue( driver.findElements(By.id("forename-err")).size() == 0);
-        Assertions.assertTrue( driver.findElements(By.id("forename-err")).size() == 0);
+        Assertions.assertTrue( driver.findElements(By.id("email-err")).size() == 0);
+        Assertions.assertTrue( driver.findElements(By.id("message-err")).size() == 0);
 
     }
 
     @Test
     public void NewSideDish_Test(){
+
+        // Arrange
         var homePage = new HomePage(driver);
-        homePage.menu_Button_Click();
-        homePage.menu_Page_SidesButton_Click();
 
+        // Act
+        homePage.click_Menu_Button();
+        homePage.click_Menu_Page_SidesButton();
 
-        var flashcards = driver.findElements(By.className("v-card__text"));
-        for( var flashcard : flashcards ) {
-            var newFlag = flashcard.findElement(By.xpath("//*[@id=\"app\"]/div/main/div/div/div[2]/div[2]/div/div[2]/div/div[10]/div/div[1]/div/span")).getAttribute("value");
-            System.out.println(newFlag=="New");
-            if(newFlag == "NEW"){
-                Assertions.assertEquals("Koren Sticky Wings", flashcard.findElement(By.className("name")).getText());
-            }
+        var newClass = driver.findElement(By.className("new"));
+        var newFlag = newClass.findElement(By.tagName("span")).getText();
+        if(newFlag.equals("NEW")){
 
+            // Assert
+                Assertions.assertEquals("Korean Sticky Wings", newClass.findElement(By.className("name")).getText());
+                Assertions.assertEquals("Korean Sticky Wings", newClass.findElement(By.tagName("img")).getAttribute("alt"));
         }
-    }
+
+}
 
     @AfterEach
     public void CleanUp() {
